@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let o = {
+            a: {
+                b: {
+                    c: {
+                        d: {
+                            e: 'lalalalala'
+                        }
+                    }
+                }
+            }
+        }
+        function getValueByPath(obj, path) {
+            let paths = path.split('.')
+
+            // let res = null
+            // res = obj[paths[0]]
+            // res = res[paths[1]]
+            // res = res[paths[2]]
+
+            // let res = obj
+            // let prop
+            // while(prop = paths.shift()) {
+            //     res = res[prop]
+            // }
+            // return res
+
+            let res = obj
+            for(let i = 0; i < paths.length; i++){
+                res = res[paths[i]]
+            }
+            return res
+        }
+
+        let res = getValueByPath(o, 'a.b.c.d.e')
+        console.log(res)
+
+        function createGetValueByPath(path) {
+            let paths = path.split('.')
+
+            return function getValueByPath(obj) {
+                let res = obj
+                for(let i = 0; i < paths.length; i++){
+                    res = res[paths[i]]
+                }
+                return res
+            }
+        }
+        let resFun = createGetValueByPath('a.b.c.d')
+        let res1 = resFun(o)
+        console.log(res1)
+    </script>
+</body>
+</html>
